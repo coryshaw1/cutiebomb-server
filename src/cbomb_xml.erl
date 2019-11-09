@@ -60,6 +60,15 @@ get_response(T = #tag{name=accept}) ->
     AcceptUsername = proplists:get_value(username, T#tag.attributes),
     lists:concat(["<addedToService username=\"", AcceptUsername, "\" userid=\"", AcceptUserId ,"\"/>"]);
 
+get_response(T = #tag{name=decline}) ->
+    UserId = proplists:get_value(userid, T#tag.attributes),
+    Username = proplists:get_value(username, T#tag.attributes),
+    TargetUserId = proplists:get_value(targetUserId, T#tag.attributes),
+    TargetUsername = proplists:get_value(targetUsername, T#tag.attributes),
+    GameTypeId = proplists:get_value(gameTypeId, T#tag.attributes),
+    Message = proplists:get_value(message, T#tag.attributes),
+    lists:concat(["<decline username=\"", Username, "\" userid=\"", UserId ,"\" targetUsername=\"", TargetUsername, "\" targetUserId=\"", TargetUserId ,"\" gameTypeId=\"", GameTypeId ,"\" message=\"", Message ,"\" />"]);
+
 get_response(#tag{name=invite}) ->
     %[{message,"0"},
     %{gameTypeId,[]},
